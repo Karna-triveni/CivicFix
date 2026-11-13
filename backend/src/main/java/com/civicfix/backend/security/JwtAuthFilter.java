@@ -24,6 +24,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Skip JWT processing entirely for OPTIONS preflight requests.
+     * Spring Security permits OPTIONS via the security chain, but the filter
+     * still runs unless we explicitly skip it here.
+     */
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return "OPTIONS".equalsIgnoreCase(request.getMethod());
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

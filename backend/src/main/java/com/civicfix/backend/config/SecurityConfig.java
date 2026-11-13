@@ -23,7 +23,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,8 +94,16 @@ public class SecurityConfig {
         // Allow all standard HTTP methods including OPTIONS for preflight
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // Allow all headers — required for Authorization + Content-Type + multipart uploads
-        config.setAllowedHeaders(Collections.singletonList("*"));
+        // Explicit header list — wildcard "*" is incompatible with allowCredentials(true)
+        config.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"
+        ));
 
         // Expose Authorization header to the browser
         config.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition"));

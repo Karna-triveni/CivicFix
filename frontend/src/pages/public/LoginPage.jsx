@@ -48,16 +48,6 @@ export default function LoginPage() {
     }
   }
 
-  const fillDemo = (type) => {
-    if (type === 'admin') {
-      setForm({ email: 'admin@civicfix.com', password: 'Admin@123' })
-    } else {
-      setForm({ email: 'citizen@civicfix.com', password: 'Citizen@123' })
-    }
-    setErrors({})
-    setApiError('')
-  }
-
   return (
     <div className="auth-wrapper">
       <div className="auth-card">
@@ -103,16 +93,6 @@ export default function LoginPage() {
             {loading ? <><Spinner /> Signing in…</> : 'Sign In'}
           </button>
         </form>
-
-        <div className="auth-divider">— Demo Accounts —</div>
-        <div style={{ display: 'flex', gap: '.75rem' }}>
-          <button className="btn btn-secondary btn-sm" style={{ flex: 1 }} onClick={() => fillDemo('citizen')}>
-            👤 Citizen Demo
-          </button>
-          <button className="btn btn-secondary btn-sm" style={{ flex: 1 }} onClick={() => fillDemo('admin')}>
-            🔧 Admin Demo
-          </button>
-        </div>
 
         <p style={{ textAlign: 'center', marginTop: '1.25rem', fontSize: '.875rem', color: 'var(--gray-500)' }}>
           New here?{' '}
